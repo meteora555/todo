@@ -7,6 +7,9 @@ function App() {
   // используем хуки, для хранение, отслеживания, и получения из localStorage наших задач
   const [item, setItem] = useState('');
   const [items, setItems] = useState(JSON.parse(localStorage.getItem('items')) || []);
+  // хук для задания изначальной позиции задачи, и изменения позиции для последующих задач
+  const [pos, setPos] = useState({ x: 100, y: -600 });
+
   // для отправки в localStorage наших задач, и следить для ререндера
   useEffect(() => {
     localStorage.setItem('items', JSON.stringify(items));
@@ -15,7 +18,7 @@ function App() {
   //тех переменная для Draggable, лечение  ошибки при рендере в strickMode
   const nodeRef = React.useRef(null);
 
-  //Создание нашей задачи, с обьектом-настройками, id используем рандом-id, цвет и позицию для отображения, записываем в наш массив, и очищаем строчку, в противнум случае если item пустая строка то выкидываем alert
+  //Создание нашей задачи, с обьектом-настройками, id используем рандом-id, цвет и позицию для отображения, записываем в наш массив, изменяем начальные координаты и очищаем строчку, в противнум случае если item пустая строка то выкидываем alert
   const newItem = () => {
     if (item.trim() !== '') {
       const newItem = {
@@ -25,13 +28,14 @@ function App() {
         color: randomColor({
           luminosity: 'light',
         }),
-        defaultPos: {
-          x: 100,
-          y: -400,
-        },
+        defaultPos: pos,
       };
+
       setItems((items) => [...items, newItem]);
       setItem('');
+      setPos(() => {
+        return { x: pos.x + 5, y: pos.y + 65 };
+      });
     } else {
       alert('Введите что-нибудь...');
       setItem('');
@@ -60,6 +64,7 @@ function App() {
       newItem();
     }
   };
+
   return (
     <div className="App">
       <div className="wrapper">
