@@ -68,7 +68,7 @@ function App() {
           onChange={(e) => setItem(e.target.value)}
           onKeyPress={(e) => keyPress(e)}
           type="text"
-          placeholder="Нужно что-то запомнить? ..."></input>
+          placeholder="Дела на сегодня ..."></input>
         <button onClick={newItem}>Enter</button>
       </div>
 
