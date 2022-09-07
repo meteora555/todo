@@ -85,6 +85,9 @@ function App() {
           defaultPosition={item.defaultPos}
           onStop={(_, data) => {
             updatePos(data, index);
+          }}
+          onStart={(_, data) => {
+            updatePos(data, index);
           }}>
           <div className="todo__item" ref={nodeRef} style={{ backgroundColor: item.color }}>
             {`${item.item}`}
@@ -99,3 +102,5 @@ function App() {
 }
 
 export default App;
+
+// исправать dragStart ошибку
